@@ -1,0 +1,35 @@
+{
+  "name": "chat-bot",
+  "version": "1.0.0",
+  "description": "Simple chat bot with nodejs",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dunneeee/bot-chat-facebook.git"
+  },
+  "keywords": [
+    "fbchat"
+  ],
+  "author": "Lê Thế Dũng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dunneeee/bot-chat-facebook/issues"
+  },
+  "homepage": "https://github.com/dunneeee/bot-chat-facebook#readme",
+  "dependencies": {
+    "@types/ascii-art": "^1.4.0",
+    "axios": "^1.2.1",
+    "chalk": "^4.1.2",
+    "class-transformer": "^0.5.1",
+    "cors": "^2.8.5",
+    "fb-chat-api": "^10.4.17",
+    "figlet": "^1.5.2",
+    "moment-timezone": "^0.5.40",
+    "morgan": "^1.10.0",
+    "youtube-search": "^1.1.6",
+    "ytdl-core": "^4.11.2"
+  }
+}

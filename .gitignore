@@ -1,0 +1,5 @@
+node_modules/
+src/Database/store/
+src/Scripts/supportTools/store/
+package-lock.json
+appState.json
