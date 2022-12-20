@@ -47,13 +47,15 @@ class BSend extends CmdAbstract_1.CmdAbstract {
     run() {
         return __awaiter(this, void 0, void 0, function* () {
             const key = this.args[0] || "";
-            let temp;
+            const config = this.db.findThreadConfig(this.event.threadID);
             switch (key.toLowerCase()) {
                 case "on":
                 case "bật":
                     if (!this.data.has(this.event.threadID)) {
                         this.data.set(this.event.threadID, new DataSend());
                         this.bot.send(`Bật bsend thành công!`, this.event.threadID, this.event.messageID);
+                        config.setBSend = true;
+                        this.db.saveThreadConfig();
                     }
                     else {
                         this.bot.send(`Bsend đã được bật trên nhóm này!`, this.event.threadID, this.event.messageID);
@@ -65,6 +67,8 @@ class BSend extends CmdAbstract_1.CmdAbstract {
                         this.data.get(this.event.threadID).stopReset();
                         this.data.delete(this.event.threadID);
                         this.bot.send(`Tắt thành công bsend`, this.event.threadID, this.event.messageID);
+                        config.setBSend = false;
+                        this.db.saveThreadConfig();
                     }
                     else {
                         this.bot.send(`Bsend chưa được bật!`, this.event.threadID, this.event.messageID);
@@ -109,7 +113,13 @@ class BSend extends CmdAbstract_1.CmdAbstract {
     }
     auto() {
         return __awaiter(this, void 0, void 0, function* () {
-            // this.bot.send("hello world", "5294795977314891");
+            const allConfig = this.db.getListThreadConfig;
+            for (let config of allConfig) {
+                if (config.getBSend) {
+                    this.data.set(config.getID, new DataSend());
+                    this.log.log((c, h) => h.success + c.red(" Bật") + " nhóm " + c.magenta(config.getID));
+                }
+            }
         });
     }
 }

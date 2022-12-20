@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Log_1 = require("../../../utils/Log");
+const Thread_1 = require("../../models/Thread");
 const CmdAbstract_1 = require("../CmdAbstract");
 const Command_1 = require("../models/Command");
 const SimsimiTools_1 = require("../supportTools/SimsimiTools");
@@ -24,6 +25,14 @@ class Sim extends CmdAbstract_1.CmdAbstract {
     swichSim(status) {
         if (status && this.listThread.findIndex((t) => t == this.event.threadID) < 0) {
             this.listThread.push(this.event.threadID);
+            const config = this.db.findThreadConfig(this.event.threadID);
+            if (config) {
+                config.setSim = true;
+            }
+            else {
+                this.db.pushThreadConfig(new Thread_1.ThreadConfig({ id: this.event.threadID, bsend: false, sim: true }));
+            }
+            this.db.saveThreadConfig();
             return {
                 status: 200,
                 mess: "Bật sim thành công!",
@@ -31,6 +40,9 @@ class Sim extends CmdAbstract_1.CmdAbstract {
         }
         if (!status && this.listThread.findIndex((t) => t == this.event.threadID) >= 0) {
             this.listThread.splice(this.listThread.findIndex((t) => t == this.event.threadID), 1);
+            const config = this.db.findThreadConfig(this.event.threadID);
+            config.setSim = false;
+            this.db.saveThreadConfig();
             return {
                 status: 200,
                 mess: "Tắt sim thành công!",
@@ -85,6 +97,16 @@ class Sim extends CmdAbstract_1.CmdAbstract {
                     if (mess) {
                         this.bot.send(mess, this.event.threadID, this.event.messageID);
                     }
+                }
+            }
+        });
+    }
+    auto() {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (let item of this.db.getListThreadConfig) {
+                if (item.getSim) {
+                    this.listThread.push(item.getID);
+                    this.log.log((c, h) => h.success + ` ${c.red("Bật ")} nhóm ${c.magenta(item.getID)}`);
                 }
             }
         });

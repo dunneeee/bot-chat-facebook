@@ -1,13 +1,50 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Thread = exports.Member = exports.Settings = void 0;
+exports.Thread = exports.Member = exports.Settings = exports.ThreadConfig = void 0;
 const Log_1 = require("../../utils/Log");
 const Person_1 = require("./Person");
+class ThreadConfig {
+    constructor(config) {
+        this.bsend = config.bsend || false;
+        this.sim = config.sim || false;
+        this.id = config.id;
+    }
+    get getSim() {
+        return this.sim;
+    }
+    get getBSend() {
+        return this.bsend;
+    }
+    set setSim(value) {
+        this.sim = value;
+    }
+    set setBSend(value) {
+        this.bsend = value;
+    }
+    get getID() {
+        return this.id;
+    }
+}
+exports.ThreadConfig = ThreadConfig;
 class Settings {
     constructor(settings) {
         this.prefix = settings.prefix;
         this.joinNoti = settings.joinNoti;
         this.leaveNoti = settings.leaveNoti;
+        this.gifJoin = settings.gifJoin;
+        this.gifLeave = settings.gifLeave;
+    }
+    get getGifJoin() {
+        return this.gifJoin;
+    }
+    get getGifLeave() {
+        return this.gifLeave;
+    }
+    set setGifJoin(value) {
+        this.gifJoin = value;
+    }
+    set setGifLeave(value) {
+        this.gifLeave = value;
     }
     get getPrefix() {
         return this.prefix;
@@ -39,7 +76,7 @@ class Member {
         this.cmdBan.push(name);
     }
     removeCmdBan(name) {
-        const index = this.cmdBan.findIndex(c => c == name);
+        const index = this.cmdBan.findIndex((c) => c == name);
         if (index >= 0) {
             this.cmdBan.splice(index, 1);
         }
@@ -72,7 +109,7 @@ class Thread extends Person_1.Person {
             this.listMemmber = value;
     }
     findMember(id) {
-        return this.listMemmber.find(m => m.id == id);
+        return this.listMemmber.find((m) => m.id == id);
     }
     addMember(member) {
         if (member) {
