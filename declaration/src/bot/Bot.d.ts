@@ -1,0 +1,34 @@
+import Database from "../Database";
+import { Api, OptionObj, ReactionChoose, SendMessageInfo, SendMessageOjb } from "../facebook/FacebookInterface";
+import { Config } from "./Config";
+import { Handle } from "./Handle";
+import { Process } from "./Process";
+export declare class Bot {
+    private fb;
+    private api;
+    private log;
+    private delay;
+    private db;
+    private process;
+    private script;
+    private config;
+    private own;
+    botID: string;
+    constructor(appStatePath: string, config: Config);
+    get getOwn(): string;
+    get getProcess(): Process;
+    get getApi(): Api;
+    get getDB(): Database;
+    get getConfig(): Config;
+    set setDelay(value: number);
+    init(): Promise<Handle>;
+    setOption(options: OptionObj): void;
+    sendTyping(threadID: string): Promise<any>;
+    send(mess: string | SendMessageOjb, threadID: string, messageID?: string): Promise<SendMessageInfo>;
+    reaction(icon: ReactionChoose, messageID: string): Promise<boolean>;
+    unsend(messageID: string): Promise<boolean>;
+    sendError(e: Error, threadID: string, messageID?: string): Promise<void>;
+    kickUser(userID: string, threadID: string): Promise<boolean>;
+    addUser(userID: string, threadID: string): Promise<boolean>;
+    isAdminBox(userID: string, threadID: string): Promise<boolean>;
+}

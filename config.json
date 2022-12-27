@@ -1,9 +1,9 @@
 {
-    "adminID": "",
-    "devMode": false,
-    "icon": "( *ˊᵕˋ)",
-    "line": "――",
-    "name": "DunnBot",
-    "pageHelp": 5,
-    "prefix": "!"
+  "adminID": "100085292523713",
+  "devMode": false,
+  "icon": "( *ˊᵕˋ)",
+  "line": "――",
+  "name": "DunnBot",
+  "pageHelp": 5,
+  "prefix": "!"
 }

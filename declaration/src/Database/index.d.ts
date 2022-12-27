@@ -1,0 +1,40 @@
+import { Thread, ThreadConfig } from "../models/Thread";
+import { User } from "../models/User";
+export default class {
+    private listUser;
+    private listThread;
+    private listThreadConfig;
+    private userDB;
+    private threadDB;
+    private threadConfigDB;
+    private log;
+    constructor();
+    private init;
+    updateThread(id: string, del: number, newThread: Thread): void;
+    get getListThreadConfig(): ThreadConfig[];
+    get getListUser(): User[];
+    get getListThread(): Thread[];
+    findThreadConfig(id: string): ThreadConfig;
+    getThreadConfigs(callback: (config: ThreadConfig, index: number) => ThreadConfig[]): ThreadConfig[];
+    removeUser(id: string): void;
+    removeThread(id: string): void;
+    hasUser(id: string): boolean;
+    checkCmdBan(cmd: string, userID: string, threadID: string): boolean;
+    checkBan(id: string): boolean;
+    hasThread(id: string): boolean;
+    hasThreadConfig(id: string): boolean;
+    findUser(id: string): User;
+    findThread(id: string): Thread;
+    getUsers(callback: (user: User) => any): User[];
+    getThreads(callback: (thread: Thread) => any): Thread[];
+    pushUser(user: User): void;
+    pushThread(thread: Thread): void;
+    pushThreadConfig(config: ThreadConfig): void;
+    saveUser(): void;
+    saveThread(): void;
+    saveThreadConfig(): void;
+    findName(name: string): {
+        userList: User[];
+        threadList: Thread[];
+    };
+}
